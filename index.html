@@ -11,114 +11,41 @@
             background-color: #A9B6C2; /* Fond gris bleuâtre */
             font-family: 'Arial', sans-serif;
             display: flex;
+            justify-content: center;
+            align-items: center;
             height: 100vh;
         }
 
-        .container {
-            display: flex;
-            width: 100%;
-        }
-
-        .left {
-            width: 50%;
-            padding: 40px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            background-image: url('https://www.toptal.com/designers/subtlepatterns/patterns/old_map_texture.png');
-            background-size: cover;
-        }
-
-        .letter-box {
-            background-color: rgba(255, 255, 204, 0.8);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 1.2em;
-        }
-
-        .right {
-            width: 50%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background-color: #f9f9f9;
-            position: relative;
-        }
-
-        h1 {
-            color: red;
-            font-size: 3em;
-            text-shadow: 2px 2px 4px #000;
-            margin-bottom: 30px;
-        }
-
-        .image-container {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: absolute;
+        /* Overlay pour forcer l'orientation paysage */
+        .force-landscape {
+            display: none;
+            position: fixed;
             top: 0;
             left: 0;
-        }
-
-        .image-container img {
-            object-fit: cover;
             width: 100%;
             height: 100%;
-            border-radius: 10px;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            font-size: 1.5em;
+            padding: 20px;
+            box-sizing: border-box;
         }
 
-        audio {
-            position: fixed;
-            bottom: 10px;
-            right: 10px;
-        }
-
-        textarea {
-            width: 100%;
-            height: 500px;
-            border: none;
-            background-color: transparent;
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 1.2em;
-            resize: none;
-            line-height: 1.6;
-        }
-
-        textarea:focus {
-            outline: none;
-        }
-
-        .bold-orange {
-            font-weight: bold;
-            color: #FFA500;
-        }
-
-        .cher-pere-noel {
-            font-weight: bold;
-            color: #FFA500;
-            font-size: 2.5em;
-        }
-
-        /* Pour les appareils en mode portrait */
+        /* Affiche l'overlay si le smartphone est en mode portrait */
         @media only screen and (max-width: 768px) and (orientation: portrait) {
-            body {
-                transform: rotate(90deg);
-                transform-origin: center center;
-                height: 100vh;
-                overflow-x: hidden;
+            .force-landscape {
+                display: flex;
             }
         }
 
-        /* Pour les appareils en mode paysage */
+        /* En mode paysage, l'overlay n'est pas affiché */
         @media only screen and (max-width: 768px) and (orientation: landscape) {
-            body {
-                transform: none;
+            .force-landscape {
+                display: none;
             }
         }
 
@@ -126,6 +53,7 @@
 </head>
 <body>
 
+    <!-- Contenu principal -->
     <div class="container">
         <div class="left">
             <div class="letter-box">
@@ -135,18 +63,17 @@ J'ai été sage toute l'année et pas plus absent qu'un salarié du privé, on d
 
 Alors je souhaiterais comme cadeaux :
 - Un vrai Budget pour faire fonctionner mon collège en 2025
-- Un CPE, une infirmière et un surveillant
-- Profiter de la baisse des effectifs pour faire des classes approchant la moyenne européenne de 21 élèves par classe.
+- Un CPE, une Infirmière et un remplaçant
+- Profitez de la baisse des effectifs pour faire des classes approchant la moyenne européenne de 21 élèves par classe.
 - Supprimer les 3 jours de carences
 - Supprimer la baisse du remboursement des consultations
 - Supprimer la baisse du remboursement des médicaments
 - Ne pas attendre 2026 pour que la moitié de ma mutuelle soit prise en charge
 - Ne pas supprimer de jour férié
 - Dégeler le point d'indice
-- Ne pas supprimer la GIPA
 - Supprimer les groupes de niveaux au collège.
 
-Si tu n'as pas tout cela, alors donne moi la Force de combattre et vient à l'HIS mardi 12h30
+Si tu n'as pas tout cela, alors donne moi l'envie et de quoi combattre.
                 </textarea>
             </div>
         </div>
@@ -159,6 +86,11 @@ Si tu n'as pas tout cela, alors donne moi la Force de combattre et vient à l'HI
         </div>
     </div>
 
+    <!-- Overlay forcer paysage -->
+    <div class="force-landscape">
+        <p>Veuillez tourner votre appareil en mode paysage pour accéder à cette page.</p>
+    </div>
+
     <!-- Musique de Noël avec autoplay et loop -->
     <audio autoplay loop>
         <source src="musique_noel.mp3" type="audio/mpeg">
@@ -167,19 +99,21 @@ Si tu n'as pas tout cela, alors donne moi la Force de combattre et vient à l'HI
 
     <!-- Script pour gérer l'orientation -->
     <script>
-        function adjustOrientation() {
+        function checkOrientation() {
+            // Si l'orientation est portrait, montrer l'overlay
             if (window.matchMedia("(orientation: portrait)").matches) {
-                document.body.style.transform = "rotate(90deg)";
-                document.body.style.transformOrigin = "center center";
-                document.body.style.height = "100vh";
-                document.body.style.overflowX = "hidden";
+                document.querySelector('.force-landscape').style.display = 'flex';
             } else {
-                document.body.style.transform = "none";
+                // Si l'orientation est paysage, cacher l'overlay
+                document.querySelector('.force-landscape').style.display = 'none';
             }
         }
 
-        window.addEventListener("load", adjustOrientation);
-        window.addEventListener("orientationchange", adjustOrientation);
+        // Vérifie l'orientation au chargement
+        window.addEventListener("load", checkOrientation);
+
+        // Vérifie l'orientation lors d'un changement
+        window.addEventListener("orientationchange", checkOrientation);
     </script>
 
 </body>
