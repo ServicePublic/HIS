@@ -14,25 +14,23 @@
             height: 100vh;
         }
 
-        /* Conteneur principal pour diviser la page en deux colonnes */
         .container {
             display: flex;
             width: 100%;
         }
 
-        /* Colonne gauche pour écrire une lettre */
         .left {
             width: 50%;
             padding: 40px;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            background-image: url('https://www.toptal.com/designers/subtlepatterns/patterns/old_map_texture.png'); /* Image de fond type vieille feuille de papier */
+            background-image: url('https://www.toptal.com/designers/subtlepatterns/patterns/old_map_texture.png');
             background-size: cover;
         }
 
         .letter-box {
-            background-color: rgba(255, 255, 204, 0.8); /* Fond jaune pâle pour la zone de texte */
+            background-color: rgba(255, 255, 204, 0.8);
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
@@ -40,15 +38,14 @@
             font-size: 1.2em;
         }
 
-        /* Colonne droite pour le titre et l'image */
         .right {
             width: 50%;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background-color: #f9f9f9; /* Fond clair pour contraste */
-            position: relative; /* Pour contrôler l'image par rapport à la colonne */
+            background-color: #f9f9f9;
+            position: relative;
         }
 
         h1 {
@@ -70,20 +67,18 @@
         }
 
         .image-container img {
-            object-fit: cover; /* L'image occupe toute la place sans déformer l'aspect */
+            object-fit: cover;
             width: 100%;
             height: 100%;
             border-radius: 10px;
         }
 
-        /* Style de la musique de Noël */
         audio {
             position: fixed;
             bottom: 10px;
             right: 10px;
         }
 
-        /* Style du texte dans la lettre */
         textarea {
             width: 100%;
             height: 500px;
@@ -96,33 +91,45 @@
         }
 
         textarea:focus {
-            outline: none; /* Enlève la bordure bleue par défaut */
+            outline: none;
         }
 
-        /* Style personnalisé pour le texte en gras et en couleur orangée */
         .bold-orange {
             font-weight: bold;
-            color: #FFA500; /* Couleur orangée */
+            color: #FFA500;
         }
 
-        /* Pour "Cher Père Noël" en gras et plus grand */
         .cher-pere-noel {
             font-weight: bold;
-            color: #FFA500; /* Couleur orangée */
-            font-size: 2.5em; /* Taille plus grande */
+            color: #FFA500;
+            font-size: 2.5em;
+        }
+
+        /* Pour les appareils en mode portrait */
+        @media only screen and (max-width: 768px) and (orientation: portrait) {
+            body {
+                transform: rotate(90deg);
+                transform-origin: center center;
+                height: 100vh;
+                overflow-x: hidden;
+            }
+        }
+
+        /* Pour les appareils en mode paysage */
+        @media only screen and (max-width: 768px) and (orientation: landscape) {
+            body {
+                transform: none;
+            }
         }
 
     </style>
 </head>
 <body>
 
-    <!-- Conteneur pour diviser la page -->
     <div class="container">
-        
-        <!-- Colonne gauche pour écrire la lettre au Père Noël -->
         <div class="left">
             <div class="letter-box">
-                <p class="cher-pere-noel">Cher Père Noël,</p> <!-- "Cher Père Noël" en gras et plus grand -->
+                <p class="cher-pere-noel">Cher Père Noël,</p>
                 <textarea readonly>
 J'ai été sage toute l'année et pas plus absent qu'un salarié du privé, on dit même parfois qu'il faut me soutenir parce que mon travail est difficile. Qu'il change même la vie des enfants !
 
@@ -130,7 +137,7 @@ Alors je souhaiterais comme cadeaux :
 - Un vrai Budget pour faire fonctionner mon collège en 2025
 - Un CPE, une infirmière et un surveillant
 - Profiter de la baisse des effectifs pour faire des classes approchant la moyenne européenne de 21 élèves par classe.
-- Supprimer les 3 jours de carence
+- Supprimer les 3 jours de carences
 - Supprimer la baisse du remboursement des consultations
 - Supprimer la baisse du remboursement des médicaments
 - Ne pas attendre 2026 pour que la moitié de ma mutuelle soit prise en charge
@@ -139,30 +146,41 @@ Alors je souhaiterais comme cadeaux :
 - Ne pas supprimer la GIPA
 - Supprimer les groupes de niveaux au collège.
 
-Si tu n'as pas tout cela, alors donne moi la FORCE de COMBATTRE et viens à l'HIS mardi 12H30.
+Si tu n'as pas tout cela, alors donne moi la Force de combattre et vient à l'HIS mardi 12h30
                 </textarea>
             </div>
         </div>
 
-        <!-- Colonne droite pour le titre et l'image -->
         <div class="right">
             <h1>Joyeux Noël 🎅</h1>
             <div class="image-container">
-                <!-- Utilise l'extension .webp pour ton image -->
-                <img src="joyeux.webp" alt="Image de Noël">
+                <img src="mon-image.webp" alt="Image de Noël">
             </div>
         </div>
-
     </div>
 
-    <!-- Musique de Noël -->
+    <!-- Musique de Noël avec autoplay et loop -->
     <audio autoplay loop>
-        <source src="music.mp3" type="audio/mpeg">
-        Votre navigateur ne supporte pas l'audio HTML5. Voici un lien pour télécharger la musique : <a href="christmas-music.mp3">Télécharger</a>
+        <source src="musique_noel.mp3" type="audio/mpeg">
+        Votre navigateur ne supporte pas l'audio HTML5. Voici un lien pour télécharger la musique : <a href="musique_noel.mp3">Télécharger</a>
     </audio>
+
+    <!-- Script pour gérer l'orientation -->
+    <script>
+        function adjustOrientation() {
+            if (window.matchMedia("(orientation: portrait)").matches) {
+                document.body.style.transform = "rotate(90deg)";
+                document.body.style.transformOrigin = "center center";
+                document.body.style.height = "100vh";
+                document.body.style.overflowX = "hidden";
+            } else {
+                document.body.style.transform = "none";
+            }
+        }
+
+        window.addEventListener("load", adjustOrientation);
+        window.addEventListener("orientationchange", adjustOrientation);
+    </script>
 
 </body>
 </html>
-
-
-
