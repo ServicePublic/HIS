@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Noël Festif</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap">
     <style>
         /* Styles généraux */
         body {
@@ -11,7 +12,6 @@
             padding: 0;
             background-color: #A9B6C2; /* Fond gris bleuâtre */
             font-family: 'Arial', sans-serif;
-            overflow: hidden; /* Empêche le défilement général */
         }
 
         .container {
@@ -25,28 +25,30 @@
             width: 50%;
             padding: 20px;
             box-sizing: border-box;
-            background-color: #F9E4B7; /* Fond jaune pâle */
-            display: flex;
-            align-items: flex-end;
-            overflow: hidden;
+            background-color: #F9E4B7; /* Fond jaune pâle pour la colonne */
+            overflow-y: auto; /* Permettre le défilement manuel */
+            border: 5px solid #E0C097; /* Bordure pour donner un effet papier */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
+        /* Zone de texte avec effet manuscrit */
         .letter-box {
-            animation: scrollUp 15s linear infinite; /* Défilement de bas en haut */
+            font-family: 'Dancing Script', cursive; /* Jolie police manuscrite */
+            font-size: 1.4em;
+            line-height: 1.8em;
+            color: #5B4636; /* Couleur brune pour simuler l'encre */
+            background-color: #F9E4B7; /* Fond papier jaune pâle */
+            padding: 10px;
+            border-radius: 5px;
         }
 
-        @keyframes scrollUp {
-            0% {
-                transform: translateY(100%);
-            }
-            100% {
-                transform: translateY(-100%);
-            }
-        }
-
-        .letter-box p {
-            font-size: 1.2em;
+        .letter-box p, .letter-box ul {
             margin-bottom: 10px;
+        }
+
+        .letter-box strong {
+            color: orange;
+            font-size: 1.6em;
         }
 
         /* Colonne droite (image) */
@@ -82,11 +84,10 @@
                 height: 50vh; /* Occupe l'autre moitié de l'écran */
                 display: block;
                 overflow-y: auto; /* Permet de faire défiler le texte manuellement */
-                align-items: flex-start; /* Réinitialise l'alignement */
             }
 
             .letter-box {
-                animation: none; /* Pas de défilement automatique sur smartphone */
+                height: auto;
             }
         }
     </style>
@@ -97,7 +98,7 @@
     <div class="container">
         <div class="left">
             <div class="letter-box">
-                <p><strong style="color: orange; font-size: 1.4em;">Cher Père Noël,</strong></p>
+                <p><strong>Cher Père Noël,</strong></p>
                 <p>J'ai été sage toute l'année et pas plus absent qu'un salarié du privé, on dit même parfois qu'il faut me soutenir parce que mon travail est difficile. Qu'il change même la vie des enfants !</p>
                 <p>Alors je souhaiterais comme cadeaux :</p>
                 <ul>
@@ -112,7 +113,7 @@
                     <li>Dégeler le point d'indice</li>
                     <li>Supprimer les groupes de niveaux au collège.</li>
                 </ul>
-                <p><strong style="color: orange; font-size: 1.4em;">Si tu n'as pas tout cela, alors donne-moi l'envie et de quoi combattre.</strong></p>
+                <p><strong>Si tu n'as pas tout cela, alors donne-moi l'envie et de quoi combattre.</strong></p>
             </div>
         </div>
 
@@ -130,3 +131,5 @@
 
 </body>
 </html>
+
+
