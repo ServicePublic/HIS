@@ -5,18 +5,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Noël Festif</title>
     <style>
+        /* Styles généraux */
         body {
             margin: 0;
             padding: 0;
             background-color: #A9B6C2; /* Fond gris bleuâtre */
             font-family: 'Arial', sans-serif;
+        }
+
+        .container {
             display: flex;
-            justify-content: center;
-            align-items: center;
             height: 100vh;
         }
 
-        /* Overlay pour forcer l'orientation paysage */
+        /* Colonne gauche (texte) */
+        .left {
+            width: 50%;
+            padding: 20px;
+            box-sizing: border-box;
+            background-color: #F9E4B7; /* Fond jaune pâle */
+        }
+
+        .letter-box {
+            height: 100%;
+            overflow-y: auto; /* Ajoute un défilement si nécessaire */
+        }
+
+        .letter-box p, .letter-box textarea {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        .letter-box textarea {
+            width: 100%;
+            height: 100%;
+            border: none;
+            resize: none;
+            background-color: #F9E4B7; /* Même fond que la colonne */
+            font-family: 'Arial', sans-serif;
+            font-size: 1.1em;
+            line-height: 1.5em;
+        }
+
+        /* Colonne droite (image) */
+        .right {
+            width: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .right img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        /* Forcer le paysage sur petits écrans */
         .force-landscape {
             display: none;
             position: fixed;
@@ -35,29 +81,52 @@
             box-sizing: border-box;
         }
 
-        /* Affiche l'overlay si le smartphone est en mode portrait */
+        /* Disposition smartphone (petit écran) */
+        @media only screen and (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .right {
+                width: 100%;
+                height: 50vh; /* Occupe la moitié de l'écran */
+            }
+
+            .left {
+                width: 100%;
+                height: 50vh; /* Occupe la moitié de l'écran */
+                overflow-y: auto; /* Permet de faire défiler le texte */
+            }
+
+            .letter-box textarea {
+                height: auto; /* Autoriser la hauteur automatique du texte */
+            }
+        }
+
+        /* Overlay pour afficher le mode paysage sur smartphone portrait */
         @media only screen and (max-width: 768px) and (orientation: portrait) {
             .force-landscape {
                 display: flex;
             }
-        }
 
-        /* En mode paysage, l'overlay n'est pas affiché */
-        @media only screen and (max-width: 768px) and (orientation: landscape) {
-            .force-landscape {
-                display: none;
+            .container {
+                display: none; /* Cache le contenu si en portrait */
             }
         }
-
     </style>
 </head>
 <body>
 
     <!-- Contenu principal -->
     <div class="container">
+        <div class="right">
+            <!-- Image de Noël -->
+            <img src="joyeux.webp" alt="Image de Noël">
+        </div>
+
         <div class="left">
             <div class="letter-box">
-                <p class="cher-pere-noel">Cher Père Noël,</p>
+                <p class="cher-pere-noel"><strong style="color: orange; font-size: 1.4em;">Cher Père Noël,</strong></p>
                 <textarea readonly>
 J'ai été sage toute l'année et pas plus absent qu'un salarié du privé, on dit même parfois qu'il faut me soutenir parce que mon travail est difficile. Qu'il change même la vie des enfants !
 
@@ -77,16 +146,9 @@ Si tu n'as pas tout cela, alors donne moi l'envie et de quoi combattre.
                 </textarea>
             </div>
         </div>
-
-        <div class="right">
-            <h1>Joyeux Noël 🎅</h1>
-            <div class="image-container">
-                <img src="joyeux.webp" alt="Image de Noël">
-            </div>
-        </div>
     </div>
 
-    <!-- Overlay forcer paysage -->
+    <!-- Overlay pour forcer paysage sur smartphone en portrait -->
     <div class="force-landscape">
         <p>Veuillez tourner votre appareil en mode paysage pour accéder à cette page.</p>
     </div>
@@ -103,9 +165,11 @@ Si tu n'as pas tout cela, alors donne moi l'envie et de quoi combattre.
             // Si l'orientation est portrait, montrer l'overlay
             if (window.matchMedia("(orientation: portrait)").matches) {
                 document.querySelector('.force-landscape').style.display = 'flex';
+                document.querySelector('.container').style.display = 'none';
             } else {
                 // Si l'orientation est paysage, cacher l'overlay
                 document.querySelector('.force-landscape').style.display = 'none';
+                document.querySelector('.container').style.display = 'flex';
             }
         }
 
@@ -118,3 +182,4 @@ Si tu n'as pas tout cela, alors donne moi l'envie et de quoi combattre.
 
 </body>
 </html>
+
