@@ -11,11 +11,13 @@
             padding: 0;
             background-color: #A9B6C2; /* Fond gris bleuâtre */
             font-family: 'Arial', sans-serif;
+            overflow: hidden; /* Empêche le défilement général */
         }
 
         .container {
             display: flex;
             height: 100vh;
+            overflow: hidden; /* Empêche le défilement global */
         }
 
         /* Colonne gauche (texte) */
@@ -24,27 +26,27 @@
             padding: 20px;
             box-sizing: border-box;
             background-color: #F9E4B7; /* Fond jaune pâle */
+            display: flex;
+            align-items: flex-end;
+            overflow: hidden;
         }
 
         .letter-box {
-            height: 100%;
-            overflow-y: auto; /* Ajoute un défilement si nécessaire */
+            animation: scrollUp 15s linear infinite; /* Défilement de bas en haut */
         }
 
-        .letter-box p, .letter-box textarea {
+        @keyframes scrollUp {
+            0% {
+                transform: translateY(100%);
+            }
+            100% {
+                transform: translateY(-100%);
+            }
+        }
+
+        .letter-box p {
             font-size: 1.2em;
             margin-bottom: 10px;
-        }
-
-        .letter-box textarea {
-            width: 100%;
-            height: 100%;
-            border: none;
-            resize: none;
-            background-color: #F9E4B7; /* Même fond que la colonne */
-            font-family: 'Arial', sans-serif;
-            font-size: 1.1em;
-            line-height: 1.5em;
         }
 
         /* Colonne droite (image) */
@@ -62,29 +64,12 @@
             max-height: 100%;
         }
 
-        /* Forcer le paysage sur petits écrans */
-        .force-landscape {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            color: white;
-            text-align: center;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            font-size: 1.5em;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-
         /* Disposition smartphone (petit écran) */
         @media only screen and (max-width: 768px) {
             .container {
                 flex-direction: column;
+                height: auto;
+                overflow: auto;
             }
 
             .right {
@@ -94,23 +79,14 @@
 
             .left {
                 width: 100%;
-                height: 50vh; /* Occupe la moitié de l'écran */
-                overflow-y: auto; /* Permet de faire défiler le texte */
+                height: 50vh; /* Occupe l'autre moitié de l'écran */
+                display: block;
+                overflow-y: auto; /* Permet de faire défiler le texte manuellement */
+                align-items: flex-start; /* Réinitialise l'alignement */
             }
 
-            .letter-box textarea {
-                height: auto; /* Autoriser la hauteur automatique du texte */
-            }
-        }
-
-        /* Overlay pour afficher le mode paysage sur smartphone portrait */
-        @media only screen and (max-width: 768px) and (orientation: portrait) {
-            .force-landscape {
-                display: flex;
-            }
-
-            .container {
-                display: none; /* Cache le contenu si en portrait */
+            .letter-box {
+                animation: none; /* Pas de défilement automatique sur smartphone */
             }
         }
     </style>
@@ -119,38 +95,31 @@
 
     <!-- Contenu principal -->
     <div class="container">
+        <div class="left">
+            <div class="letter-box">
+                <p><strong style="color: orange; font-size: 1.4em;">Cher Père Noël,</strong></p>
+                <p>J'ai été sage toute l'année et pas plus absent qu'un salarié du privé, on dit même parfois qu'il faut me soutenir parce que mon travail est difficile. Qu'il change même la vie des enfants !</p>
+                <p>Alors je souhaiterais comme cadeaux :</p>
+                <ul>
+                    <li>Un vrai Budget pour faire fonctionner mon collège en 2025</li>
+                    <li>Un CPE, une Infirmière et un remplaçant</li>
+                    <li>Profitez de la baisse des effectifs pour faire des classes approchant la moyenne européenne de 21 élèves par classe.</li>
+                    <li>Supprimer les 3 jours de carences</li>
+                    <li>Supprimer la baisse du remboursement des consultations</li>
+                    <li>Supprimer la baisse du remboursement des médicaments</li>
+                    <li>Ne pas attendre 2026 pour que la moitié de ma mutuelle soit prise en charge</li>
+                    <li>Ne pas supprimer de jour férié</li>
+                    <li>Dégeler le point d'indice</li>
+                    <li>Supprimer les groupes de niveaux au collège.</li>
+                </ul>
+                <p><strong style="color: orange; font-size: 1.4em;">Si tu n'as pas tout cela, alors donne-moi l'envie et de quoi combattre.</strong></p>
+            </div>
+        </div>
+
         <div class="right">
             <!-- Image de Noël -->
             <img src="joyeux.webp" alt="Image de Noël">
         </div>
-
-        <div class="left">
-            <div class="letter-box">
-                <p class="cher-pere-noel"><strong style="color: orange; font-size: 1.4em;">Cher Père Noël,</strong></p>
-                <textarea readonly>
-J'ai été sage toute l'année et pas plus absent qu'un salarié du privé, on dit même parfois qu'il faut me soutenir parce que mon travail est difficile. Qu'il change même la vie des enfants !
-
-Alors je souhaiterais comme cadeaux :
-- Un vrai Budget pour faire fonctionner mon collège en 2025
-- Un CPE, une Infirmière et un remplaçant
-- Profitez de la baisse des effectifs pour faire des classes approchant la moyenne européenne de 21 élèves par classe.
-- Supprimer les 3 jours de carences
-- Supprimer la baisse du remboursement des consultations
-- Supprimer la baisse du remboursement des médicaments
-- Ne pas attendre 2026 pour que la moitié de ma mutuelle soit prise en charge
-- Ne pas supprimer de jour férié
-- Dégeler le point d'indice
-- Supprimer les groupes de niveaux au collège.
-
-Si tu n'as pas tout cela, alors donne moi l'envie et de quoi combattre.
-                </textarea>
-            </div>
-        </div>
-    </div>
-
-    <!-- Overlay pour forcer paysage sur smartphone en portrait -->
-    <div class="force-landscape">
-        <p>Veuillez tourner votre appareil en mode paysage pour accéder à cette page.</p>
     </div>
 
     <!-- Musique de Noël avec autoplay et loop -->
@@ -159,27 +128,5 @@ Si tu n'as pas tout cela, alors donne moi l'envie et de quoi combattre.
         Votre navigateur ne supporte pas l'audio HTML5. Voici un lien pour télécharger la musique : <a href="musique_noel.mp3">Télécharger</a>
     </audio>
 
-    <!-- Script pour gérer l'orientation -->
-    <script>
-        function checkOrientation() {
-            // Si l'orientation est portrait, montrer l'overlay
-            if (window.matchMedia("(orientation: portrait)").matches) {
-                document.querySelector('.force-landscape').style.display = 'flex';
-                document.querySelector('.container').style.display = 'none';
-            } else {
-                // Si l'orientation est paysage, cacher l'overlay
-                document.querySelector('.force-landscape').style.display = 'none';
-                document.querySelector('.container').style.display = 'flex';
-            }
-        }
-
-        // Vérifie l'orientation au chargement
-        window.addEventListener("load", checkOrientation);
-
-        // Vérifie l'orientation lors d'un changement
-        window.addEventListener("orientationchange", checkOrientation);
-    </script>
-
 </body>
 </html>
-
